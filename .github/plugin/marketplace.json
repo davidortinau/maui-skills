@@ -1,0 +1,52 @@
+{
+  "name": "maui-skills",
+  "metadata": {
+    "description": ".NET MAUI skills for GitHub Copilot and Claude Code",
+    "version": "1.0.0"
+  },
+  "owner": {
+    "name": "David Ortinau",
+    "email": "daor@microsoft.com"
+  },
+  "plugins": [
+    {
+      "name": "maui-skills",
+      "source": "plugins/maui-skills",
+      "description": ".NET MAUI development skills covering controls, navigation, data, platform APIs, and more.",
+      "version": "1.0.0",
+      "skills": [
+        "./skills/maui-accessibility",
+        "./skills/maui-animations",
+        "./skills/maui-app-icons-splash",
+        "./skills/maui-app-lifecycle",
+        "./skills/maui-authentication",
+        "./skills/maui-collectionview",
+        "./skills/maui-custom-handlers",
+        "./skills/maui-data-binding",
+        "./skills/maui-deep-linking",
+        "./skills/maui-dependency-injection",
+        "./skills/maui-file-handling",
+        "./skills/maui-geolocation",
+        "./skills/maui-gestures",
+        "./skills/maui-graphics-drawing",
+        "./skills/maui-hot-reload-diagnostics",
+        "./skills/maui-hybridwebview",
+        "./skills/maui-local-notifications",
+        "./skills/maui-localization",
+        "./skills/maui-maps",
+        "./skills/maui-media-picker",
+        "./skills/maui-performance",
+        "./skills/maui-permissions",
+        "./skills/maui-platform-invoke",
+        "./skills/maui-push-notifications",
+        "./skills/maui-rest-api",
+        "./skills/maui-secure-storage",
+        "./skills/maui-shell-navigation",
+        "./skills/maui-speech-to-text",
+        "./skills/maui-sqlite-database",
+        "./skills/maui-theming",
+        "./skills/maui-unit-testing"
+      ]
+    }
+  ]
+}
