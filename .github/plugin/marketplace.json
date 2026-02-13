@@ -40,6 +40,7 @@
         "./skills/maui-platform-invoke",
         "./skills/maui-push-notifications",
         "./skills/maui-rest-api",
+        "./skills/maui-safe-area",
         "./skills/maui-secure-storage",
         "./skills/maui-shell-navigation",
         "./skills/maui-speech-to-text",
