@@ -1,6 +1,6 @@
 # .NET MAUI Skills
 
-A collection of 32 skills for .NET MAUI development, designed for use with GitHub Copilot CLI and Claude Code. Each skill provides focused, expert-level guidance on a specific area of .NET MAUI app development.
+A collection of 33 skills for .NET MAUI development, designed for use with GitHub Copilot CLI and Claude Code. Each skill provides focused, expert-level guidance on a specific area of .NET MAUI app development.
 
 Skills are loaded on-demand when your prompt matches the skill's topic, injecting detailed guidance, code examples, and platform-specific notes into the AI's context.
 
@@ -12,7 +12,8 @@ Skills are loaded on-demand when your prompt matches the skill's topic, injectin
 | [maui-animations](plugins/maui-skills/skills/maui-animations/) | .NET MAUI view animations, custom animations, easing functions, rotation, scale, translation, and fade effects. |
 | [maui-app-icons-splash](plugins/maui-skills/skills/maui-app-icons-splash/) | .NET MAUI app icon configuration, splash screen setup, SVG to PNG conversion at build time, composed/adaptive icons, and platform-specific icon and splash screen requirements for Android, iOS, Mac Catalyst, and Windows. |
 | [maui-app-lifecycle](plugins/maui-skills/skills/maui-app-lifecycle/) | .NET MAUI app lifecycle guidance covering the four app states (not running, running, deactivated, stopped), cross-platform Window lifecycle events, backgrounding and resume behaviour, platform-specific lifecycle mapping for Android and iOS/Mac Catalyst, and state-preservation patterns. |
-| [maui-authentication](plugins/maui-skills/skills/maui-authentication/) | Add web authentication to .NET MAUI apps using WebAuthenticator, OAuth 2.0, social login providers (Google, Apple, Microsoft), token handling, callback URI configuration, and secure token storage with SecureStorage. |
+| [maui-aspire](plugins/maui-skills/skills/maui-aspire/) | Guide for .NET MAUI apps consuming .NET Aspire-hosted backend services. Covers AppHost configuration, service discovery for mobile clients, HttpClient DI setup, Entra ID authentication with MSAL.NET for calling protected APIs, development workflow, and platform-specific networking. |
+| [maui-authentication](plugins/maui-skills/skills/maui-authentication/) | Add authentication to .NET MAUI apps. Covers WebAuthenticator for generic OAuth 2.0 / social login, and MSAL.NET for Microsoft Entra ID with broker support, token caching, Conditional Access, platform-specific setup, and Blazor Hybrid integration. |
 | [maui-collectionview](plugins/maui-skills/skills/maui-collectionview/) | Guidance for implementing CollectionView in .NET MAUI apps — data display, layouts (list & grid), selection, grouping, scrolling, empty views, templates, incremental loading, swipe actions, and pull-to-refresh. |
 | [maui-custom-handlers](plugins/maui-skills/skills/maui-custom-handlers/) | Guide for creating custom .NET MAUI handlers, customizing existing handlers with property mappers, and implementing platform-specific native views. Covers PrependToMapping/ModifyMapping/AppendToMapping, PropertyMapper, CommandMapper, partial handler classes, and handler registration. |
 | [maui-data-binding](plugins/maui-skills/skills/maui-data-binding/) | Guidance for .NET MAUI XAML data bindings, compiled bindings, value converters, binding modes, multi-binding, relative bindings, and MVVM best practices. |

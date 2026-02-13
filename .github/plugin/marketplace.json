@@ -19,6 +19,7 @@
         "./skills/maui-animations",
         "./skills/maui-app-icons-splash",
         "./skills/maui-app-lifecycle",
+        "./skills/maui-aspire",
         "./skills/maui-authentication",
         "./skills/maui-collectionview",
         "./skills/maui-custom-handlers",
