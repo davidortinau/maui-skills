@@ -101,6 +101,17 @@ Contributions are welcome. To add or improve a skill:
 4. If adding a new skill, add its path to `.github/plugin/marketplace.json`.
 5. Submit a pull request with a description of what the skill covers.
 
+## Validation Tests
+
+Each skill has been tested with a standalone .NET MAUI project that implements the skill's guidance and verifies it builds and runs correctly.
+
+**Test suite:** [davidortinau/maui-skills-tests](https://github.com/davidortinau/maui-skills-tests)
+
+All 33 skills build successfully for Mac Catalyst. Each test includes:
+- Implemented skill code
+- `REPORT.md` with validation results
+- Manual runtime verification steps
+
 ## License
 
 [MIT](LICENSE)
