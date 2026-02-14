@@ -1,6 +1,6 @@
 # .NET MAUI Skills
 
-A collection of 33 skills for .NET MAUI development, designed for use with GitHub Copilot CLI and Claude Code. Each skill provides focused, expert-level guidance on a specific area of .NET MAUI app development.
+A collection of 34 skills for .NET MAUI development, designed for use with GitHub Copilot CLI and Claude Code. Each skill provides focused, expert-level guidance on a specific area of .NET MAUI app development.
 
 Skills are loaded on-demand when your prompt matches the skill's topic, injecting detailed guidance, code examples, and platform-specific notes into the AI's context.
 
@@ -15,6 +15,7 @@ Skills are loaded on-demand when your prompt matches the skill's topic, injectin
 | [maui-aspire](plugins/maui-skills/skills/maui-aspire/) | Guide for .NET MAUI apps consuming .NET Aspire-hosted backend services. Covers AppHost configuration, service discovery for mobile clients, HttpClient DI setup, Entra ID authentication with MSAL.NET for calling protected APIs, development workflow, and platform-specific networking. |
 | [maui-authentication](plugins/maui-skills/skills/maui-authentication/) | Add authentication to .NET MAUI apps. Covers WebAuthenticator for generic OAuth 2.0 / social login, and MSAL.NET for Microsoft Entra ID with broker support, token caching, Conditional Access, platform-specific setup, and Blazor Hybrid integration. |
 | [maui-collectionview](plugins/maui-skills/skills/maui-collectionview/) | Guidance for implementing CollectionView in .NET MAUI apps — data display, layouts (list & grid), selection, grouping, scrolling, empty views, templates, incremental loading, swipe actions, and pull-to-refresh. |
+| [maui-current-apis](plugins/maui-skills/skills/maui-current-apis/) | Always-on guardrail for .NET MAUI API currency. Prevents AI coding agents from using deprecated, obsolete, or removed APIs across XAML/C#, Blazor Hybrid, and MauiReactor. Includes a reasoning framework for detecting project target framework and library versions, plus a curated table of the most common deprecated API traps in .NET MAUI 10. |
 | [maui-custom-handlers](plugins/maui-skills/skills/maui-custom-handlers/) | Guide for creating custom .NET MAUI handlers, customizing existing handlers with property mappers, and implementing platform-specific native views. Covers PrependToMapping/ModifyMapping/AppendToMapping, PropertyMapper, CommandMapper, partial handler classes, and handler registration. |
 | [maui-data-binding](plugins/maui-skills/skills/maui-data-binding/) | Guidance for .NET MAUI XAML data bindings, compiled bindings, value converters, binding modes, multi-binding, relative bindings, and MVVM best practices. |
 | [maui-deep-linking](plugins/maui-skills/skills/maui-deep-linking/) | Guide for implementing deep linking in .NET MAUI apps. Covers Android App Links with intent filters, Digital Asset Links, and AutoVerify; iOS Universal Links with Associated Domains entitlements and Apple App Site Association files; custom URI schemes; and domain verification for both platforms. |
@@ -107,7 +108,7 @@ Each skill has been tested with a standalone .NET MAUI project that implements t
 
 **Test suite:** [davidortinau/maui-skills-tests](https://github.com/davidortinau/maui-skills-tests)
 
-All 33 skills build successfully for Mac Catalyst. Each test includes:
+All 34 skills build successfully for Mac Catalyst. Each test includes:
 - Implemented skill code
 - `REPORT.md` with validation results
 - Manual runtime verification steps

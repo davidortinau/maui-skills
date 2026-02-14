@@ -1,0 +1,1021 @@
+# MAUI Skills Validation Test Suite
+# ==================================
+# Each skill has:
+#   - prompt: Natural language request to give Copilot CLI
+#   - trigger_check: How to verify the skill was invoked
+#   - build_check: What to look for to confirm code compiles
+#   - runtime_check: Manual verification steps on device/simulator
+#   - success_criteria: Specific observable outcomes that mean "pass"
+#   - external_deps: Any cloud services or API keys needed
+#   - notes: Edge cases or known issues
+
+skills:
+
+  # ============================================================================
+  # ACCESSIBILITY
+  # ============================================================================
+  maui-accessibility:
+    prompt: "Make my app accessible for screen readers"
+    alternate_prompts:
+      - "Add VoiceOver support to my app"
+      - "Add TalkBack accessibility to this page"
+      - "Set up semantic properties for accessibility"
+    trigger_check: |
+      Copilot mentions SemanticProperties, AutomationProperties, or screen reader support
+    build_check: |
+      - SemanticProperties.Description or SemanticProperties.Hint added to controls
+      - No build errors related to accessibility attributes
+    runtime_check: |
+      1. Deploy to iOS simulator or Android emulator
+      2. Enable VoiceOver (iOS: Settings > Accessibility > VoiceOver)
+         or TalkBack (Android: Settings > Accessibility > TalkBack)
+      3. Navigate the app using screen reader gestures
+      4. Verify controls are announced with meaningful descriptions
+    success_criteria:
+      - Buttons announce their purpose (not just "Button")
+      - Images have descriptions read aloud
+      - Headings are identified as headings
+      - Focus order is logical
+    external_deps: none
+    notes: Test on both iOS and Android as behavior differs
+
+  # ============================================================================
+  # ANIMATIONS
+  # ============================================================================
+  maui-animations:
+    prompt: "Add a fade-in animation when my page loads"
+    alternate_prompts:
+      - "Animate a button with a bounce effect when tapped"
+      - "Create a rotation animation for a loading spinner"
+      - "Add slide-in animation from the right"
+    trigger_check: |
+      Copilot uses FadeTo, TranslateTo, RotateTo, ScaleTo, or Animation class
+    build_check: |
+      - Animation extension methods called on VisualElement
+      - Easing functions used correctly (Easing.SpringOut, etc.)
+      - No ambiguous reference errors
+    runtime_check: |
+      1. Deploy to simulator
+      2. Navigate to the page with animation
+      3. Observe the animation plays smoothly
+      4. Verify animation timing feels natural
+    success_criteria:
+      - Animation visibly plays (not instant)
+      - No UI freezing during animation
+      - Animation completes without error
+    external_deps: none
+    notes: Test with different easing functions
+
+  # ============================================================================
+  # APP ICONS & SPLASH
+  # ============================================================================
+  maui-app-icons-splash:
+    prompt: "Set up my app icon and splash screen"
+    alternate_prompts:
+      - "Configure a custom app icon for all platforms"
+      - "Add a splash screen to my MAUI app"
+      - "Change my app's launcher icon"
+    trigger_check: |
+      Copilot modifies csproj with MauiIcon/MauiSplashScreen or adds SVG to Resources/
+    build_check: |
+      - MauiIcon and/or MauiSplashScreen entries in csproj
+      - SVG or PNG files in Resources/AppIcon or Resources/Splash
+      - Build generates platform-specific icons without errors
+    runtime_check: |
+      1. Build and deploy to device/simulator
+      2. Check home screen for correct app icon
+      3. Force-quit and relaunch app
+      4. Observe splash screen displays correctly
+    success_criteria:
+      - App icon appears on home screen (not default MAUI icon)
+      - Splash screen shows during cold start
+      - Icon renders correctly at all sizes
+    external_deps: none
+    notes: May need to uninstall/reinstall to see icon changes
+
+  # ============================================================================
+  # APP LIFECYCLE
+  # ============================================================================
+  maui-app-lifecycle:
+    prompt: "Save my app state when it goes to the background"
+    alternate_prompts:
+      - "Handle app lifecycle events"
+      - "Restore state when my app resumes"
+      - "Do something when my app is minimized"
+    trigger_check: |
+      Copilot uses Window lifecycle events (Created, Resumed, Stopped, etc.) or
+      overrides OnSleep/OnResume in App.xaml.cs
+    build_check: |
+      - Lifecycle event handlers registered
+      - State serialization/deserialization logic present
+      - No errors about missing lifecycle methods
+    runtime_check: |
+      1. Deploy to device/simulator
+      2. Make some state changes (enter text, select items)
+      3. Press Home to background the app
+      4. Wait 30 seconds, then return to app
+      5. Verify state is preserved
+    success_criteria:
+      - Data entered before backgrounding is still present
+      - No crash on resume
+      - Lifecycle events fire (verify with debug logging)
+    external_deps: none
+    notes: Test both quick resume and longer background periods
+
+  # ============================================================================
+  # ASPIRE INTEGRATION
+  # ============================================================================
+  maui-aspire:
+    prompt: "Connect my MAUI app to an Aspire backend"
+    alternate_prompts:
+      - "Set up my MAUI app to call my Aspire API"
+      - "Configure HttpClient for my Aspire services"
+      - "Add service discovery for my MAUI app"
+    trigger_check: |
+      Copilot sets up HttpClient with base address configuration, mentions service discovery
+      limitations for MAUI, or references Aspire AppHost
+    build_check: |
+      - HttpClient registered in MauiProgram.cs with DI
+      - Base URL configuration (not service discovery URIs)
+      - appsettings.json or similar for endpoint configuration
+    runtime_check: |
+      1. Start Aspire AppHost with API service
+      2. Configure MAUI app with correct API URL
+      3. Deploy MAUI app to simulator
+      4. Trigger API call from MAUI app
+      5. Verify data flows correctly
+    success_criteria:
+      - MAUI app successfully calls Aspire-hosted API
+      - Response data displays in MAUI UI
+      - No network/SSL errors
+    external_deps: 
+      - Running Aspire AppHost
+      - API service project
+    notes: |
+      Android emulator needs 10.0.2.2 for localhost.
+      MAUI is NOT added to Aspire AppHost - it's an external client.
+
+  # ============================================================================
+  # AUTHENTICATION
+  # ============================================================================
+  maui-authentication:
+    prompt: "Add Microsoft Entra ID authentication to my app"
+    alternate_prompts:
+      - "Implement login with Microsoft account"
+      - "Add OAuth authentication with Google"
+      - "Set up MSAL authentication"
+      - "Add user login to my MAUI app"
+    trigger_check: |
+      Copilot uses MSAL.NET (PublicClientApplication) for Entra ID,
+      or WebAuthenticator for generic OAuth
+    build_check: |
+      - Microsoft.Identity.Client package added (for Entra)
+      - IPublicClientApplication configured in DI
+      - Platform-specific redirect URIs configured
+      - Android: OnActivityResult calls AuthenticationContinuationHelper
+      - iOS: OpenUrl calls AuthenticationContinuationHelper
+    runtime_check: |
+      1. Register app in Entra ID (or use test tenant)
+      2. Configure client ID and redirect URIs
+      3. Deploy to device/simulator
+      4. Tap login button
+      5. Complete authentication flow in browser/broker
+      6. Verify token received and user info displayed
+    success_criteria:
+      - Login UI appears (browser or authenticator app)
+      - Can complete sign-in flow
+      - Access token is obtained
+      - User info (name, email) can be retrieved
+    external_deps:
+      - Entra ID tenant (or Google/Apple developer account for OAuth)
+      - App registration with redirect URIs
+    notes: |
+      Full flow requires Entra setup. For build-only validation,
+      verify MSAL is configured correctly without live tenant.
+
+  # ============================================================================
+  # COLLECTIONVIEW
+  # ============================================================================
+  maui-collectionview:
+    prompt: "Display a list of items with CollectionView"
+    alternate_prompts:
+      - "Create a grid of images using CollectionView"
+      - "Add pull-to-refresh to my list"
+      - "Implement swipe actions on list items"
+      - "Add grouping to my CollectionView"
+    trigger_check: |
+      Copilot uses CollectionView with ItemsSource, ItemTemplate, and layout configuration
+    build_check: |
+      - CollectionView in XAML with ItemTemplate
+      - ItemsSource bound to collection
+      - Data model class created
+      - No binding errors
+    runtime_check: |
+      1. Deploy to simulator
+      2. Verify list displays with data
+      3. Scroll through items smoothly
+      4. Test any interactive features (pull-to-refresh, swipe, selection)
+    success_criteria:
+      - Items render with correct data
+      - Scrolling is smooth (no jank)
+      - Pull-to-refresh works (if implemented)
+      - Selection fires events (if implemented)
+    external_deps: none
+    notes: Test with 100+ items to verify virtualization
+
+  # ============================================================================
+  # CURRENT APIS (API Currency Guardrail)
+  # ============================================================================
+  maui-current-apis:
+    prompt: "Write a page with a ListView and use Device.RuntimePlatform for platform checks"
+    alternate_prompts:
+      - "Add a Frame around this content"
+      - "Use MessagingCenter to send a message between ViewModels"
+      - "Use DependencyService to get a platform implementation"
+      - "Add a ClickGestureRecognizer to this label"
+      - "Which API should I use for this feature in MAUI?"
+    trigger_check: |
+      Copilot should NOT use ListView, Device.RuntimePlatform, Frame, MessagingCenter,
+      DependencyService, or ClickGestureRecognizer. Instead it should use CollectionView,
+      DeviceInfo.Platform, Border, WeakReferenceMessenger, constructor injection, and
+      TapGestureRecognizer respectively.
+    build_check: |
+      - No references to deprecated types (ListView, Frame, MessagingCenter, Device.*)
+      - Uses current replacement APIs
+      - No Compatibility namespace usage in new code
+      - No build warnings about obsolete APIs
+    runtime_check: |
+      1. Verify generated code compiles without obsolete warnings
+      2. Confirm no Xamarin.* namespaces are referenced
+      3. Check that animation calls use *Async naming (FadeToAsync, etc.)
+      4. Verify DisplayAlertAsync is used instead of DisplayAlert
+    success_criteria:
+      - Agent reads .csproj to determine target framework before generating code
+      - No deprecated APIs from the skill's table are used
+      - Agent explains why it chose the current API over the deprecated one
+      - Generated code targets .NET 10 patterns when project targets net10.0
+    external_deps: none
+    notes: This is an always-on guardrail skill that should influence all MAUI code generation
+
+  # ============================================================================
+  # CUSTOM HANDLERS
+  # ============================================================================
+  maui-custom-handlers:
+    prompt: "Customize the native Entry control to have a borderless look"
+    alternate_prompts:
+      - "Create a custom handler for my view"
+      - "Modify the native button appearance"
+      - "Add platform-specific behavior to a control"
+    trigger_check: |
+      Copilot uses PropertyMapper, AppendToMapping, or creates a custom Handler class
+    build_check: |
+      - Handler modification in MauiProgram.cs or separate handler class
+      - Platform-specific code in Platforms/ folders
+      - No handler registration errors
+    runtime_check: |
+      1. Deploy to iOS and Android simulators
+      2. Navigate to page with customized control
+      3. Verify native appearance matches expectation
+      4. Test control functionality still works
+    success_criteria:
+      - Visual customization visible on device
+      - Control behavior not broken
+      - Works on both iOS and Android
+    external_deps: none
+    notes: Test on multiple platforms as handlers are platform-specific
+
+  # ============================================================================
+  # DATA BINDING
+  # ============================================================================
+  maui-data-binding:
+    prompt: "Set up MVVM data binding for my page"
+    alternate_prompts:
+      - "Create a ViewModel with property change notifications"
+      - "Bind a label to a property that updates"
+      - "Add a value converter for my binding"
+    trigger_check: |
+      Copilot creates ViewModel with INotifyPropertyChanged, sets BindingContext,
+      uses {Binding} in XAML
+    build_check: |
+      - ViewModel class implements INotifyPropertyChanged (or uses [ObservableProperty])
+      - XAML has x:DataType for compiled bindings
+      - Bindings use correct property paths
+    runtime_check: |
+      1. Deploy to simulator
+      2. Verify initial values display
+      3. Change data in ViewModel (via button, etc.)
+      4. Verify UI updates automatically
+    success_criteria:
+      - UI reflects ViewModel state
+      - Property changes propagate to UI
+      - Two-way bindings update ViewModel from UI
+    external_deps: none
+    notes: Check for compiled bindings (x:DataType) for best performance
+
+  # ============================================================================
+  # DEEP LINKING
+  # ============================================================================
+  maui-deep-linking:
+    prompt: "Add deep linking so users can open specific pages via URL"
+    alternate_prompts:
+      - "Set up Universal Links for iOS"
+      - "Configure Android App Links"
+      - "Handle custom URI schemes"
+    trigger_check: |
+      Copilot configures intent-filters (Android), Associated Domains (iOS),
+      or custom URL schemes
+    build_check: |
+      - AndroidManifest.xml has intent-filter with VIEW action
+      - iOS Info.plist has CFBundleURLSchemes or entitlements have Associated Domains
+      - App.xaml.cs or Shell handles incoming URLs
+    runtime_check: |
+      1. Deploy to device/simulator
+      2. Open Safari/Chrome and navigate to deep link URL
+      3. Verify app opens to correct page
+      4. Test with parameters in URL
+    success_criteria:
+      - Tapping link opens app (not browser)
+      - Correct page/content displayed
+      - URL parameters parsed correctly
+    external_deps:
+      - For Universal Links: apple-app-site-association file on web server
+      - For App Links: assetlinks.json on web server
+    notes: Custom URI schemes work without server config
+
+  # ============================================================================
+  # DEPENDENCY INJECTION
+  # ============================================================================
+  maui-dependency-injection:
+    prompt: "Set up dependency injection for my services"
+    alternate_prompts:
+      - "Register a singleton service in MAUI"
+      - "Inject a service into my ViewModel"
+      - "Add a scoped service for my pages"
+    trigger_check: |
+      Copilot uses builder.Services.AddSingleton/AddTransient/AddScoped in MauiProgram.cs
+    build_check: |
+      - Services registered in MauiProgram.cs
+      - Constructor injection in ViewModels/Pages
+      - Interface + implementation pattern used
+    runtime_check: |
+      1. Deploy to simulator
+      2. Navigate to page that uses injected service
+      3. Verify service methods work correctly
+      4. Check singleton state persists across navigations
+    success_criteria:
+      - No DI resolution errors at runtime
+      - Service methods execute correctly
+      - Singleton instances are reused
+    external_deps: none
+    notes: Test with breakpoints to verify injection
+
+  # ============================================================================
+  # FILE HANDLING
+  # ============================================================================
+  maui-file-handling:
+    prompt: "Let users pick a file from their device"
+    alternate_prompts:
+      - "Open a file picker for documents"
+      - "Save data to a file in app storage"
+      - "Read a bundled JSON file from my app"
+    trigger_check: |
+      Copilot uses FilePicker, FileSystem.AppDataDirectory, or OpenAppPackageFileAsync
+    build_check: |
+      - FilePicker.PickAsync called for picking
+      - FileSystem.AppDataDirectory for app storage
+      - Correct file types configured
+    runtime_check: |
+      1. Deploy to device/simulator
+      2. Tap button to open file picker
+      3. Select a file
+      4. Verify file content is read/displayed
+    success_criteria:
+      - File picker opens with correct filters
+      - Selected file can be read
+      - File path/content accessible in app
+    external_deps: none
+    notes: Test with different file types
+
+  # ============================================================================
+  # GEOLOCATION
+  # ============================================================================
+  maui-geolocation:
+    prompt: "Get the user's current GPS location"
+    alternate_prompts:
+      - "Add location tracking to my app"
+      - "Show the user's coordinates on screen"
+      - "Request location permissions"
+    trigger_check: |
+      Copilot uses Geolocation.GetLocationAsync or Geolocation.GetLastKnownLocationAsync
+    build_check: |
+      - Geolocation API used with proper async/await
+      - Platform permissions declared (AndroidManifest, Info.plist)
+      - Error handling for denied permissions
+    runtime_check: |
+      1. Deploy to device (or simulator with location simulation)
+      2. Tap button to get location
+      3. Accept permission prompt
+      4. Verify coordinates display
+    success_criteria:
+      - Permission prompt appears
+      - After granting, location is retrieved
+      - Latitude/longitude values are reasonable
+    external_deps: none
+    notes: |
+      iOS Simulator: Debug > Location > Custom Location
+      Android Emulator: Extended Controls > Location
+
+  # ============================================================================
+  # GESTURES
+  # ============================================================================
+  maui-gestures:
+    prompt: "Add swipe gesture to delete items"
+    alternate_prompts:
+      - "Detect tap gestures on an image"
+      - "Add pinch-to-zoom to my view"
+      - "Implement pan gesture for dragging"
+    trigger_check: |
+      Copilot adds GestureRecognizers to view (TapGestureRecognizer, SwipeGestureRecognizer, etc.)
+    build_check: |
+      - GestureRecognizer added in XAML or code
+      - Event handler or Command wired up
+      - Correct gesture type for intended action
+    runtime_check: |
+      1. Deploy to simulator
+      2. Perform the gesture (tap, swipe, pinch, pan)
+      3. Verify gesture is detected
+      4. Verify action is triggered
+    success_criteria:
+      - Gesture is recognized
+      - Callback/command fires
+      - Visual feedback (if any) displays
+    external_deps: none
+    notes: Test on touch device, not just mouse
+
+  # ============================================================================
+  # GRAPHICS DRAWING
+  # ============================================================================
+  maui-graphics-drawing:
+    prompt: "Draw a custom pie chart using GraphicsView"
+    alternate_prompts:
+      - "Create custom drawing on a canvas"
+      - "Draw shapes and paths programmatically"
+      - "Render text on a GraphicsView"
+    trigger_check: |
+      Copilot uses GraphicsView with IDrawable implementation
+    build_check: |
+      - GraphicsView in XAML
+      - IDrawable class with Draw method
+      - Canvas operations (DrawCircle, DrawPath, DrawString, etc.)
+    runtime_check: |
+      1. Deploy to simulator
+      2. Navigate to page with GraphicsView
+      3. Verify custom drawing renders
+      4. Test any interactivity (if implemented)
+    success_criteria:
+      - Drawing appears on screen
+      - Shapes/colors are correct
+      - No rendering artifacts
+    external_deps: none
+    notes: Test on different screen sizes
+
+  # ============================================================================
+  # HOT RELOAD DIAGNOSTICS
+  # ============================================================================
+  maui-hot-reload-diagnostics:
+    prompt: "Hot reload isn't working, help me fix it"
+    alternate_prompts:
+      - "XAML changes aren't updating in my app"
+      - "Debug my hot reload setup"
+      - "Configure hot reload for VS Code"
+    trigger_check: |
+      Copilot checks environment variables, IDE settings, or suggests diagnostic steps
+    build_check: |
+      - This skill is diagnostic, not code-generating
+      - May suggest csproj changes or environment variables
+    runtime_check: |
+      1. Start app in debug mode
+      2. Make a XAML change (e.g., change label text)
+      3. Save file
+      4. Verify change appears without rebuild
+    success_criteria:
+      - XAML hot reload working
+      - C# hot reload working (where supported)
+      - No need to restart app for UI changes
+    external_deps: none
+    notes: This is a troubleshooting skill, not feature implementation
+
+  # ============================================================================
+  # HYBRIDWEBVIEW
+  # ============================================================================
+  maui-hybridwebview:
+    prompt: "Embed a web page and call JavaScript from C#"
+    alternate_prompts:
+      - "Set up HybridWebView for web content"
+      - "Call C# methods from JavaScript"
+      - "Send messages between web and native"
+    trigger_check: |
+      Copilot uses HybridWebView with InvokeJavaScriptAsync or SetInvokeJavaScriptTarget
+    build_check: |
+      - HybridWebView in XAML
+      - Web content in Resources/Raw
+      - JavaScript interop methods defined
+    runtime_check: |
+      1. Deploy to simulator
+      2. Verify web content loads in HybridWebView
+      3. Trigger C# -> JS call
+      4. Trigger JS -> C# call
+      5. Verify bidirectional communication works
+    success_criteria:
+      - Web content renders
+      - C# can invoke JavaScript functions
+      - JavaScript can invoke C# methods
+      - Data passes correctly both ways
+    external_deps: none
+    notes: Watch for trimming issues in Release builds
+
+  # ============================================================================
+  # LOCAL NOTIFICATIONS
+  # ============================================================================
+  maui-local-notifications:
+    prompt: "Send a notification to the user"
+    alternate_prompts:
+      - "Schedule a reminder notification"
+      - "Add local push notifications"
+      - "Show a notification when a task completes"
+    trigger_check: |
+      Copilot uses Plugin.LocalNotification or platform notification APIs
+    build_check: |
+      - Plugin.LocalNotification package added
+      - Notification channel configured (Android)
+      - Permission request code present
+    runtime_check: |
+      1. Deploy to device/simulator
+      2. Trigger notification (button tap or schedule)
+      3. If scheduled, wait or adjust device time
+      4. Verify notification appears in notification center
+    success_criteria:
+      - Permission granted (if prompted)
+      - Notification appears in system tray/notification center
+      - Notification content matches what was sent
+      - Tapping notification opens app (if configured)
+    external_deps: none
+    notes: Test on real device for best results
+
+  # ============================================================================
+  # LOCALIZATION
+  # ============================================================================
+  maui-localization:
+    prompt: "Localize my app for Spanish"
+    alternate_prompts:
+      - "Add multi-language support"
+      - "Set up resource files for translations"
+      - "Support RTL languages"
+    trigger_check: |
+      Copilot creates .resx files or uses localization extensions
+    build_check: |
+      - AppResources.resx (default) and AppResources.es.resx created
+      - Strings accessed via AppResources.StringName or extension
+      - XAML uses localization markup
+    runtime_check: |
+      1. Deploy to simulator
+      2. Change device language to Spanish
+      3. Restart app (or use runtime switch if implemented)
+      4. Verify UI shows Spanish strings
+    success_criteria:
+      - App displays localized strings
+      - All visible text is translated
+      - Layout handles different text lengths
+    external_deps: none
+    notes: Test RTL with Arabic/Hebrew if skill covers it
+
+  # ============================================================================
+  # MAPS
+  # ============================================================================
+  maui-maps:
+    prompt: "Add a map to my app with a pin at a location"
+    alternate_prompts:
+      - "Show a Google Map in my app"
+      - "Add map markers for locations"
+      - "Implement geocoding to search addresses"
+    trigger_check: |
+      Copilot uses Microsoft.Maui.Controls.Maps with Map control
+    build_check: |
+      - Microsoft.Maui.Controls.Maps package added
+      - Map control in XAML
+      - Google Maps API key configured (Android)
+      - UseMauiMaps() in MauiProgram.cs
+    runtime_check: |
+      1. Configure Google Maps API key
+      2. Deploy to device/simulator
+      3. Verify map renders (not blank)
+      4. Check pin appears at specified location
+    success_criteria:
+      - Map tiles load and display
+      - Can pan/zoom map
+      - Pins appear at correct locations
+    external_deps:
+      - Google Maps API key (Android)
+      - Apple Maps works without key (iOS)
+    notes: Android requires API key or map shows blank
+
+  # ============================================================================
+  # MEDIA PICKER
+  # ============================================================================
+  maui-media-picker:
+    prompt: "Let users take a photo or pick from gallery"
+    alternate_prompts:
+      - "Add camera capture to my app"
+      - "Pick a photo from the photo library"
+      - "Select multiple images"
+    trigger_check: |
+      Copilot uses MediaPicker.CapturePhotoAsync or MediaPicker.PickPhotoAsync
+    build_check: |
+      - MediaPicker API used
+      - Camera/photo library permissions declared
+      - FileResult handling code present
+    runtime_check: |
+      1. Deploy to device with camera (or simulator with photo library)
+      2. Tap button to pick/capture photo
+      3. Grant permissions if prompted
+      4. Select or capture image
+      5. Verify image displays in app
+    success_criteria:
+      - Permission prompts appear
+      - Camera opens (for capture) or gallery opens (for pick)
+      - Selected image is accessible in app
+      - Image displays correctly
+    external_deps: none
+    notes: Camera capture requires physical device
+
+  # ============================================================================
+  # PERFORMANCE
+  # ============================================================================
+  maui-performance:
+    prompt: "Optimize my app's performance"
+    alternate_prompts:
+      - "My app is slow, help me fix it"
+      - "Enable compiled bindings for better performance"
+      - "Configure trimming for smaller app size"
+    trigger_check: |
+      Copilot adds compiled bindings, optimizes layouts, or configures trimming
+    build_check: |
+      - x:DataType added for compiled bindings
+      - Unnecessary layout nesting reduced
+      - Trimming/AOT settings in csproj (if applicable)
+    runtime_check: |
+      1. Measure before: note app startup time, scroll smoothness
+      2. Apply optimizations
+      3. Rebuild and deploy
+      4. Measure after: compare startup time, scroll smoothness
+    success_criteria:
+      - No new build errors from optimizations
+      - Startup time same or improved
+      - UI remains smooth
+      - App size reduced (if trimming enabled)
+    external_deps: none
+    notes: This is optimization guidance, impact varies by app
+
+  # ============================================================================
+  # PERMISSIONS
+  # ============================================================================
+  maui-permissions:
+    prompt: "Request camera permission from the user"
+    alternate_prompts:
+      - "Check if location permission is granted"
+      - "Handle permission denied scenarios"
+      - "Request multiple permissions at once"
+    trigger_check: |
+      Copilot uses Permissions.CheckStatusAsync and Permissions.RequestAsync
+    build_check: |
+      - Permissions API usage
+      - Platform permission declarations (AndroidManifest, Info.plist)
+      - PermissionStatus handling
+    runtime_check: |
+      1. Deploy to device/simulator
+      2. Trigger permission request
+      3. Verify system dialog appears
+      4. Test grant and deny paths
+    success_criteria:
+      - Permission dialog shows
+      - App handles granted status
+      - App handles denied status gracefully
+      - Permission state persists across launches
+    external_deps: none
+    notes: Test "Don't ask again" scenario on Android
+
+  # ============================================================================
+  # PLATFORM INVOKE
+  # ============================================================================
+  maui-platform-invoke:
+    prompt: "Call a platform-specific API from shared code"
+    alternate_prompts:
+      - "Access iOS-specific features from MAUI"
+      - "Use Android native APIs in my app"
+      - "Add conditional platform code"
+    trigger_check: |
+      Copilot uses partial classes, conditional compilation, or platform folders
+    build_check: |
+      - Partial class with platform implementations
+      - #if ANDROID/#if IOS directives or Platforms/ folder
+      - No missing method errors
+    runtime_check: |
+      1. Deploy to target platform (iOS or Android)
+      2. Trigger the platform-specific code
+      3. Verify native API is called
+      4. Check correct behavior on each platform
+    success_criteria:
+      - Code compiles for all target platforms
+      - Platform-specific behavior works
+      - Other platforms have fallback/no-op
+    external_deps: none
+    notes: Test on both iOS and Android
+
+  # ============================================================================
+  # PUSH NOTIFICATIONS
+  # ============================================================================
+  maui-push-notifications:
+    prompt: "Add push notifications with Firebase"
+    alternate_prompts:
+      - "Set up remote notifications for iOS"
+      - "Configure FCM for my MAUI app"
+      - "Handle incoming push messages"
+    trigger_check: |
+      Copilot sets up Firebase (Android) or APNs (iOS) configuration
+    build_check: |
+      - Firebase packages added (Android)
+      - google-services.json included
+      - APNs entitlements (iOS)
+      - Notification handlers registered
+    runtime_check: |
+      1. Set up Firebase project and download google-services.json
+      2. Configure APNs in Apple Developer Portal
+      3. Deploy to device
+      4. Send test push from Firebase Console
+      5. Verify notification received
+    success_criteria:
+      - Device registers for push notifications
+      - Test push appears on device
+      - App handles notification when foregrounded
+      - App handles notification when backgrounded
+    external_deps:
+      - Firebase project (Android)
+      - Apple Developer account with APNs (iOS)
+      - Backend to send pushes (or Firebase Console)
+    notes: Full test requires paid Apple Developer account for iOS
+
+  # ============================================================================
+  # REST API
+  # ============================================================================
+  maui-rest-api:
+    prompt: "Fetch data from a REST API"
+    alternate_prompts:
+      - "Set up HttpClient to call my backend"
+      - "POST data to an API endpoint"
+      - "Deserialize JSON from a web service"
+    trigger_check: |
+      Copilot sets up HttpClient with DI and uses System.Text.Json
+    build_check: |
+      - HttpClient registered in DI
+      - Async methods with GetAsync/PostAsync
+      - JSON serialization configured
+    runtime_check: |
+      1. Deploy to simulator
+      2. Trigger API call (e.g., button tap)
+      3. Verify data is fetched and displayed
+      4. Test error handling (disconnect network)
+    success_criteria:
+      - HTTP request succeeds
+      - JSON response parsed correctly
+      - Data displays in UI
+      - Errors handled gracefully
+    external_deps:
+      - API endpoint to call (can use public test API like jsonplaceholder.typicode.com)
+    notes: Android may need cleartext traffic config for HTTP
+
+  # ============================================================================
+  # SAFE AREA
+  # ============================================================================
+  maui-safe-area:
+    prompt: "Make my content go edge-to-edge under the status bar"
+    alternate_prompts:
+      - "Handle safe areas for iPhone notch"
+      - "Configure SafeAreaEdges in .NET 10"
+      - "Avoid the keyboard covering my input"
+    trigger_check: |
+      Copilot uses SafeAreaEdges, SafeAreaRegions, or CSS env(safe-area-inset-*)
+    build_check: |
+      - SafeAreaEdges property on Page/View
+      - SafeAreaRegions values (Container, SoftInput, etc.)
+      - For Blazor: CSS with safe-area-inset variables
+    runtime_check: |
+      1. Deploy to device with notch/island (or simulator)
+      2. Verify content extends under status bar (if configured)
+      3. Verify content doesn't overlap notch (if protected)
+      4. Open keyboard and verify input not obscured
+    success_criteria:
+      - Edge-to-edge works as configured
+      - Content readable (not under notch/camera)
+      - Keyboard doesn't cover input fields
+    external_deps: none
+    notes: .NET 10 default changed to edge-to-edge on Android
+
+  # ============================================================================
+  # SECURE STORAGE
+  # ============================================================================
+  maui-secure-storage:
+    prompt: "Store a user token securely"
+    alternate_prompts:
+      - "Save sensitive data with SecureStorage"
+      - "Persist login credentials safely"
+      - "Use the iOS Keychain from MAUI"
+    trigger_check: |
+      Copilot uses SecureStorage.SetAsync/GetAsync
+    build_check: |
+      - SecureStorage API calls
+      - Async/await pattern
+      - iOS entitlements for Keychain (if needed)
+    runtime_check: |
+      1. Deploy to device/simulator
+      2. Save a value using SecureStorage
+      3. Close and reopen app
+      4. Retrieve value and verify it persists
+    success_criteria:
+      - Value saves without error
+      - Value persists across app restart
+      - Value retrievable after restart
+    external_deps: none
+    notes: Test on real device as simulators may behave differently
+
+  # ============================================================================
+  # SHELL NAVIGATION
+  # ============================================================================
+  maui-shell-navigation:
+    prompt: "Set up Shell navigation with tabs"
+    alternate_prompts:
+      - "Add a flyout menu to my app"
+      - "Navigate with Shell.GoToAsync"
+      - "Pass parameters when navigating"
+    trigger_check: |
+      Copilot configures AppShell.xaml with TabBar/FlyoutItem and uses GoToAsync
+    build_check: |
+      - AppShell.xaml with Shell structure
+      - Routes registered in code or XAML
+      - GoToAsync calls with correct routes
+    runtime_check: |
+      1. Deploy to simulator
+      2. Verify tabs or flyout appear
+      3. Tap to navigate between sections
+      4. Test programmatic navigation with parameters
+    success_criteria:
+      - Tab bar or flyout displays
+      - Navigation between pages works
+      - Parameters passed correctly
+      - Back navigation works
+    external_deps: none
+    notes: Test deep navigation (multiple levels)
+
+  # ============================================================================
+  # SPEECH TO TEXT
+  # ============================================================================
+  maui-speech-to-text:
+    prompt: "Add voice input to my app"
+    alternate_prompts:
+      - "Let users speak to enter text"
+      - "Implement speech recognition"
+      - "Add a microphone button for dictation"
+    trigger_check: |
+      Copilot uses CommunityToolkit.Maui SpeechToText
+    build_check: |
+      - CommunityToolkit.Maui package added
+      - UseMauiCommunityToolkit() in MauiProgram
+      - SpeechToText API calls
+      - Microphone permission declared
+    runtime_check: |
+      1. Deploy to device with microphone
+      2. Tap microphone button
+      3. Grant microphone permission
+      4. Speak a phrase
+      5. Verify text appears in UI
+    success_criteria:
+      - Microphone permission requested
+      - Speech recognition starts
+      - Spoken words convert to text
+      - Text displays accurately
+    external_deps: none
+    notes: Requires real device with microphone for full test
+
+  # ============================================================================
+  # SQLITE DATABASE
+  # ============================================================================
+  maui-sqlite-database:
+    prompt: "Add a local database to store items"
+    alternate_prompts:
+      - "Set up SQLite for offline storage"
+      - "Create a database table for my data"
+      - "Implement CRUD operations with SQLite"
+    trigger_check: |
+      Copilot uses sqlite-net-pcl with SQLiteAsyncConnection
+    build_check: |
+      - sqlite-net-pcl package added
+      - SQLiteAsyncConnection configured
+      - Model class with [PrimaryKey, AutoIncrement]
+      - Database path in FileSystem.AppDataDirectory
+    runtime_check: |
+      1. Deploy to simulator
+      2. Add an item (create)
+      3. View items (read)
+      4. Restart app
+      5. Verify items persist (data survives restart)
+    success_criteria:
+      - Database file created
+      - Items can be added
+      - Items display after read
+      - Data persists after app restart
+    external_deps: none
+    notes: Test with restart to verify persistence
+
+  # ============================================================================
+  # THEMING
+  # ============================================================================
+  maui-theming:
+    prompt: "Add dark mode support to my app"
+    alternate_prompts:
+      - "Switch between light and dark themes"
+      - "Use AppThemeBinding for theming"
+      - "Detect system theme changes"
+    trigger_check: |
+      Copilot uses AppThemeBinding or Application.Current.RequestedTheme
+    build_check: |
+      - AppThemeBinding in XAML for colors
+      - Theme resources defined
+      - RequestedThemeChanged handler (optional)
+    runtime_check: |
+      1. Deploy to simulator
+      2. Set device to light mode, verify appearance
+      3. Switch device to dark mode
+      4. Verify app colors change appropriately
+    success_criteria:
+      - App follows system theme
+      - Colors differ between light/dark
+      - Theme switch is seamless (no restart needed)
+    external_deps: none
+    notes: Theme detection can be tricky during startup
+
+  # ============================================================================
+  # UNIT TESTING
+  # ============================================================================
+  maui-unit-testing:
+    prompt: "Set up unit tests for my ViewModels"
+    alternate_prompts:
+      - "Create an xUnit test project for MAUI"
+      - "Mock MAUI services in tests"
+      - "Test my ViewModel logic"
+    trigger_check: |
+      Copilot creates xUnit test project with ViewModel tests
+    build_check: |
+      - Test project (.Tests.csproj) created
+      - xUnit packages added
+      - Test classes with [Fact] or [Theory]
+      - Mocks for MAUI services (if needed)
+    runtime_check: |
+      1. Run tests: dotnet test
+      2. Verify tests execute
+      3. Check test results (pass/fail)
+    success_criteria:
+      - Test project builds
+      - Tests run without crash
+      - Tests pass (or fail for expected reasons)
+    external_deps: none
+    notes: ViewModel tests don't need device
+
+# ============================================================================
+# TEST EXECUTION NOTES
+# ============================================================================
+# 
+# Priority Order for Testing:
+# 1. Most commonly used skills first
+# 2. Skills without external dependencies
+# 3. Skills requiring external services last
+#
+# Recommended test order:
+#   1. maui-data-binding (foundation)
+#   2. maui-dependency-injection (foundation)
+#   3. maui-shell-navigation (foundation)
+#   4. maui-collectionview (common UI)
+#   5. maui-sqlite-database (common storage)
+#   6. maui-theming (common UX)
+#   7. maui-rest-api (common networking)
+#   8. maui-speech-to-text (your reference case)
+#   ... then others
+#
+# Skills requiring external setup (test last or skip):
+#   - maui-authentication (Entra tenant)
+#   - maui-aspire (Aspire AppHost)
+#   - maui-maps (Google API key)
+#   - maui-push-notifications (Firebase + Apple Developer)
+#
+# Time estimate:
+#   - Quick skills (no external deps): ~5-10 min each
+#   - Complex skills (external setup): ~30-60 min each
+#   - Full suite: ~4-6 hours

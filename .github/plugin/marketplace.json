@@ -22,6 +22,7 @@
         "./skills/maui-aspire",
         "./skills/maui-authentication",
         "./skills/maui-collectionview",
+        "./skills/maui-current-apis",
         "./skills/maui-custom-handlers",
         "./skills/maui-data-binding",
         "./skills/maui-deep-linking",
