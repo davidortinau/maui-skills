@@ -2,7 +2,7 @@
   "name": "maui-skills",
   "metadata": {
     "description": ".NET MAUI skills for GitHub Copilot and Claude Code",
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   "owner": {
     "name": "David Ortinau",
@@ -13,7 +13,7 @@
       "name": "maui-skills",
       "source": "plugins/maui-skills",
       "description": ".NET MAUI development skills covering controls, navigation, data, platform APIs, and more.",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "skills": [
         "./skills/maui-accessibility",
         "./skills/maui-animations",
