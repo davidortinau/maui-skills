@@ -4,9 +4,12 @@ description: >
   End-to-end guide for adding push notifications to .NET MAUI apps.
   Covers Firebase Cloud Messaging (Android), Apple Push Notification Service (iOS),
   Azure Notification Hubs as the cross-platform broker, an ASP.NET Core backend API,
-  and the MAUI client wiring on every platform. Use this skill when implementing
-  push notifications, registering devices, sending test notifications, or
-  troubleshooting token/registration issues in a .NET MAUI application.
+  and the MAUI client wiring on every platform.
+  USE FOR: "push notification", "FCM", "APNS", "Firebase Cloud Messaging",
+  "Azure Notification Hubs", "device registration", "remote notification",
+  "send push notification", "notification token".
+  DO NOT USE FOR: local/scheduled notifications (use maui-local-notifications),
+  general permission handling (use maui-permissions), or background tasks without notifications (use maui-app-lifecycle).
 ---
 
 # Push Notifications for .NET MAUI

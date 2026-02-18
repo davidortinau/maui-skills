@@ -5,9 +5,13 @@ description: >
   OAuth 2.0 / social login, and MSAL.NET for Microsoft Entra ID (Azure AD)
   with broker support (Microsoft Authenticator), token caching, Conditional
   Access, platform-specific setup (Android, iOS, Windows), DelegatingHandler
-  for bearer token API calls, and Blazor Hybrid integration. Includes
-  instructions for acquiring the Entra ID provisioning skill for cloud-side
-  app registration.
+  for bearer token API calls, and Blazor Hybrid integration.
+  USE FOR: "add authentication", "OAuth login", "MSAL.NET", "social login",
+  "WebAuthenticator", "Entra ID MAUI", "Azure AD login", "Google login MAUI",
+  "Apple login MAUI", "token caching", "bearer token", "sign in".
+  DO NOT USE FOR: secure local storage of tokens (use maui-secure-storage),
+  Aspire-specific auth setup (use maui-aspire), or server-side Entra ID provisioning
+  (use entra-id-aspire-provisioning).
 ---
 
 # .NET MAUI Web Authentication

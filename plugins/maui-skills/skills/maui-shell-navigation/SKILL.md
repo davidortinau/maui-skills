@@ -3,9 +3,12 @@ name: maui-shell-navigation
 description: >
   .NET MAUI Shell navigation guidance — Shell visual hierarchy, AppShell setup,
   tab bars, flyout menus, URI-based navigation with GoToAsync, route registration,
-  query parameters, back navigation, and navigation events. Use when building or
-  modifying Shell-based MAUI apps, adding pages/routes, configuring tabs or flyout,
-  or implementing navigation with data passing.
+  query parameters, back navigation, and navigation events.
+  USE FOR: "Shell navigation", "GoToAsync", "AppShell", "tab bar", "flyout menu",
+  "route registration", "query parameters navigation", "back navigation",
+  "Shell tabs", "URI navigation", "navigation events".
+  DO NOT USE FOR: deep linking from external URLs (use maui-deep-linking),
+  data binding on pages (use maui-data-binding), or dependency injection setup (use maui-dependency-injection).
 ---
 
 # .NET MAUI Shell Navigation

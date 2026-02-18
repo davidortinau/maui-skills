@@ -5,7 +5,11 @@ description: >
   Covers SetAsync, GetAsync, Remove, RemoveAll, platform setup
   (Android backup rules, iOS Keychain entitlements, Windows limits),
   common pitfalls, and a DI wrapper service for testability.
-  Use when storing tokens, secrets, or sensitive user data.
+  USE FOR: "secure storage", "SecureStorage", "store token securely", "Keychain",
+  "Android Keystore", "save secret", "encrypted storage", "store credentials",
+  "sensitive data storage".
+  DO NOT USE FOR: general file storage (use maui-file-handling), SQLite databases
+  (use maui-sqlite-database), or authentication flows (use maui-authentication).
 ---
 
 # Secure Storage in .NET MAUI

@@ -3,6 +3,11 @@ name: maui-data-binding
 description: >-
   Guidance for .NET MAUI XAML data bindings, compiled bindings, value converters,
   binding modes, multi-binding, relative bindings, and MVVM best practices.
+  USE FOR: "data binding", "compiled binding", "value converter", "IValueConverter",
+  "binding mode", "TwoWay binding", "multi-binding", "relative binding",
+  "BindingContext", "MVVM binding", "INotifyPropertyChanged".
+  DO NOT USE FOR: CollectionView item templates (use maui-collectionview),
+  Shell navigation data passing (use maui-shell-navigation), or dependency injection (use maui-dependency-injection).
 ---
 
 # .NET MAUI Data Binding

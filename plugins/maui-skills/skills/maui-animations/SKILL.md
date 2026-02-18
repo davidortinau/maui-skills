@@ -3,6 +3,11 @@ name: maui-animations
 description: >
   .NET MAUI view animations, custom animations, easing functions,
   rotation, scale, translation, and fade effects.
+  USE FOR: "animate view", "fade in", "fade out", "slide animation", "scale animation",
+  "rotate view", "translate view", "easing function", "custom animation", "animation chaining",
+  "ViewExtensions animation".
+  DO NOT USE FOR: gesture recognition (use maui-gestures), custom drawing (use maui-graphics-drawing),
+  or static layout changes (use maui-data-binding).
 ---
 
 # .NET MAUI Animations

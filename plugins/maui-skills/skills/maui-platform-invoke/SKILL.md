@@ -5,6 +5,11 @@ description: >
   Covers partial classes, conditional compilation, multi-targeting configuration,
   and dependency injection patterns for cross-platform code that needs
   Android, iOS, Mac Catalyst, or Windows functionality.
+  USE FOR: "platform-specific code", "conditional compilation", "partial class",
+  "#if ANDROID", "#if IOS", "multi-targeting", "native API call", "platform invoke",
+  "platform-specific DI", "DeviceInfo.Platform".
+  DO NOT USE FOR: custom control handlers (use maui-custom-handlers),
+  permission requests (use maui-permissions), or dependency injection patterns (use maui-dependency-injection).
 ---
 
 # Platform Invoke in .NET MAUI

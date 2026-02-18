@@ -4,6 +4,11 @@ description: >
   .NET MAUI runtime permissions guidance — checking and requesting permissions,
   PermissionStatus handling, custom permissions via BasePlatformPermission,
   platform-specific manifest/plist declarations, and DI-friendly service patterns.
+  USE FOR: "request permission", "check permission", "PermissionStatus", "runtime permission",
+  "BasePlatformPermission", "custom permission", "Android manifest permission",
+  "Info.plist permission", "permission denied handling".
+  DO NOT USE FOR: geolocation-specific permissions (use maui-geolocation),
+  camera/photo permissions (use maui-media-picker), or notification permissions (use maui-local-notifications).
 ---
 
 # .NET MAUI Permissions

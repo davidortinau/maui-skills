@@ -1,6 +1,14 @@
 ---
 name: maui-local-notifications
-description: Add local notifications to .NET MAUI apps on Android, iOS, and Mac Catalyst. Use when implementing scheduled reminders, alert messages, in-app notification systems, or any feature that sends notifications to the user's device. Covers notification channels, permissions, scheduling, foreground/background handling, and DI registration. Works with XAML/MVVM, C# Markup, and MauiReactor.
+description: >
+  Add local notifications to .NET MAUI apps on Android, iOS, and Mac Catalyst.
+  Covers notification channels, permissions, scheduling, foreground/background handling,
+  and DI registration. Works with XAML/MVVM, C# Markup, and MauiReactor.
+  USE FOR: "local notification", "schedule notification", "notification channel",
+  "notification permission", "reminder notification", "alert notification",
+  "in-app notification", "foreground notification".
+  DO NOT USE FOR: push notifications from a server (use maui-push-notifications),
+  permission handling only (use maui-permissions), or app lifecycle background tasks (use maui-app-lifecycle).
 ---
 
 # .NET MAUI Local Notifications

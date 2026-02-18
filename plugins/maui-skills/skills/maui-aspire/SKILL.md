@@ -7,6 +7,10 @@ description: >
   protected APIs, development workflow (Aspire dashboard + MAUI debugging),
   Blazor Hybrid considerations, and platform-specific networking for
   Android emulators and iOS simulators.
+  USE FOR: "MAUI with Aspire", "Aspire service discovery", "AppHost MAUI",
+  "Aspire backend", "MAUI Aspire networking", "mobile Aspire", "Aspire dashboard MAUI".
+  DO NOT USE FOR: standalone REST API calls without Aspire (use maui-rest-api),
+  authentication without Aspire (use maui-authentication), or Aspire-only projects without MAUI.
 ---
 
 # .NET MAUI with .NET Aspire

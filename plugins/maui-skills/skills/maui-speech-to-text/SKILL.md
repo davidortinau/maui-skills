@@ -1,6 +1,13 @@
 ---
 name: maui-speech-to-text
-description: Add speech-to-text voice input to .NET MAUI apps using CommunityToolkit.Maui. Use this skill when implementing voice input, speech recognition, microphone permissions, or hands-free text entry in MAUI applications. Works with any UI pattern (XAML/MVVM, C# Markup, MauiReactor). Produces normalized natural language text from spoken input.
+description: >
+  Add speech-to-text voice input to .NET MAUI apps using CommunityToolkit.Maui.
+  Covers speech recognition, microphone permissions, and hands-free text entry.
+  Works with any UI pattern (XAML/MVVM, C# Markup, MauiReactor).
+  USE FOR: "speech to text", "voice input", "speech recognition", "microphone input",
+  "voice command", "dictation", "SpeechToText", "hands-free text", "transcribe speech".
+  DO NOT USE FOR: text-to-speech output (different feature), media playback
+  (use maui-media-picker), or general permissions (use maui-permissions).
 ---
 
 # .NET MAUI Speech-to-Text Implementation

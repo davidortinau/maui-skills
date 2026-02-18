@@ -4,6 +4,11 @@ description: >
   Guidance for embedding web content in .NET MAUI apps using HybridWebView,
   including JavaScript–C# interop, bidirectional communication, raw messaging,
   and trimming/NativeAOT considerations.
+  USE FOR: "HybridWebView", "JavaScript interop", "embed web content", "JS to C# interop",
+  "C# to JavaScript", "web view interop", "raw message", "InvokeJavaScriptAsync",
+  "web content MAUI".
+  DO NOT USE FOR: deep linking from external URLs (use maui-deep-linking),
+  REST API calls (use maui-rest-api), or Blazor Hybrid apps (different from HybridWebView).
 ---
 # HybridWebView in .NET MAUI
 

@@ -3,6 +3,11 @@ name: maui-unit-testing
 description: >
   xUnit testing guidance for .NET MAUI apps — ViewModel testing, mocking MAUI
   services, test project setup, code coverage, and on-device test runners.
+  USE FOR: "unit test MAUI", "xUnit test", "ViewModel testing", "mock MAUI services",
+  "test project setup", "code coverage", "on-device test runner", "test MAUI app",
+  "IServiceProvider mock", "Moq MAUI".
+  DO NOT USE FOR: UI automation testing (use appium-automation),
+  performance profiling (use maui-performance), or dependency injection setup (use maui-dependency-injection).
 ---
 
 # .NET MAUI Unit Testing with xUnit

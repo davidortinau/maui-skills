@@ -5,6 +5,11 @@ description: >
   with intent filters, Digital Asset Links, and AutoVerify; iOS Universal Links with
   Associated Domains entitlements and Apple App Site Association files; custom URI
   schemes; and domain verification for both platforms.
+  USE FOR: "deep linking", "app links", "universal links", "custom URI scheme",
+  "intent filter", "Associated Domains", "Digital Asset Links", "open app from URL",
+  "handle incoming URL", "domain verification".
+  DO NOT USE FOR: in-app Shell navigation (use maui-shell-navigation),
+  push notification handling (use maui-push-notifications), or web content embedding (use maui-hybridwebview).
 ---
 
 # .NET MAUI Deep Linking

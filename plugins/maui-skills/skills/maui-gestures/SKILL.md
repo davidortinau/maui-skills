@@ -4,6 +4,11 @@ description: >
   Guidance for implementing tap, swipe, pan, pinch, drag-and-drop, and pointer
   gesture recognizers in .NET MAUI applications. Covers XAML and C# usage,
   combining gestures, and platform differences.
+  USE FOR: "tap gesture", "swipe gesture", "pan gesture", "pinch gesture",
+  "drag and drop", "pointer gesture", "gesture recognizer", "TapGestureRecognizer",
+  "SwipeGestureRecognizer", "PanGestureRecognizer", "combine gestures".
+  DO NOT USE FOR: animations triggered by gestures (use maui-animations),
+  CollectionView swipe actions (use maui-collectionview), or custom drawing interaction (use maui-graphics-drawing).
 ---
 
 # .NET MAUI Gesture Recognizers

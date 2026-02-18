@@ -5,6 +5,11 @@ description: >
   lifetime selection (Singleton/Transient/Scoped), constructor injection,
   automatic resolution via Shell navigation, explicit resolution patterns,
   platform-specific registrations, and testability best practices.
+  USE FOR: "dependency injection", "DI registration", "AddSingleton", "AddTransient",
+  "AddScoped", "service registration", "constructor injection", "IServiceProvider",
+  "MauiProgram DI", "register services".
+  DO NOT USE FOR: data binding (use maui-data-binding), Shell route setup (use maui-shell-navigation),
+  or unit test mocking patterns (use maui-unit-testing).
 ---
 
 # Dependency Injection in .NET MAUI

@@ -5,6 +5,11 @@ description: >
   running, deactivated, stopped), cross-platform Window lifecycle events,
   backgrounding and resume behaviour, platform-specific lifecycle mapping
   for Android and iOS/Mac Catalyst, and state-preservation patterns.
+  USE FOR: "app lifecycle", "OnStart", "OnSleep", "OnResume", "backgrounding",
+  "app state", "window lifecycle", "save state on background", "resume app",
+  "deactivated event", "lifecycle events".
+  DO NOT USE FOR: navigation events (use maui-shell-navigation),
+  dependency injection setup (use maui-dependency-injection), or platform APIs (use maui-platform-invoke).
 ---
 
 # .NET MAUI App Lifecycle

@@ -2,11 +2,14 @@
 name: maui-sqlite-database
 description: >
   Add SQLite local database storage to .NET MAUI apps using sqlite-net-pcl.
-  Use this skill when implementing local data persistence, offline storage,
-  CRUD operations, or database access in MAUI applications. Covers Constants,
-  data models with ORM attributes, async database service with lazy init,
+  Covers data models with ORM attributes, async database service with lazy init,
   DI registration, WAL mode, and file management. Works with any UI pattern
   (XAML/MVVM, C# Markup, MauiReactor).
+  USE FOR: "SQLite database", "local database", "sqlite-net-pcl", "offline storage",
+  "CRUD database", "database service", "WAL mode", "CreateTableAsync",
+  "local data persistence", "ORM attributes".
+  DO NOT USE FOR: REST API data fetching (use maui-rest-api), secure credential storage
+  (use maui-secure-storage), or file picking (use maui-file-handling).
 ---
 
 # SQLite Local Database for .NET MAUI

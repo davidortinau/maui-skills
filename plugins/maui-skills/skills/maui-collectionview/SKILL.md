@@ -4,6 +4,11 @@ description: >
   Guidance for implementing CollectionView in .NET MAUI apps — data display,
   layouts (list & grid), selection, grouping, scrolling, empty views, templates,
   incremental loading, swipe actions, and pull-to-refresh.
+  USE FOR: "CollectionView", "list view", "grid layout", "data template",
+  "item template", "grouping", "pull to refresh", "incremental loading",
+  "swipe actions", "empty view", "selection mode", "scroll to item".
+  DO NOT USE FOR: simple static layouts (use maui-data-binding),
+  map pin lists (use maui-maps), or table-based data entry forms.
 ---
 
 # CollectionView – .NET MAUI

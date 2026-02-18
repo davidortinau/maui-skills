@@ -3,6 +3,10 @@ name: maui-media-picker
 description: >-
   Guidance for picking photos/videos, capturing from camera, multi-select (.NET 10),
   MediaPickerOptions, platform permissions, and FileResult handling in .NET MAUI.
+  USE FOR: "pick photo", "capture photo", "take picture", "pick video", "camera capture",
+  "MediaPicker", "photo gallery", "image picker", "multi-select photos", "MediaPickerOptions".
+  DO NOT USE FOR: general file picking (use maui-file-handling),
+  image display or optimization (use maui-performance), or camera streaming (use maui-platform-invoke).
 ---
 
 # .NET MAUI Media Picker Skill

@@ -3,6 +3,10 @@ name: maui-graphics-drawing
 description: >
   Guidance for custom drawing with Microsoft.Maui.Graphics, GraphicsView, canvas drawing operations,
   shapes, paths, text rendering, image drawing, shadows, clipping, and canvas state management.
+  USE FOR: "custom drawing", "GraphicsView", "canvas drawing", "draw shapes", "draw path",
+  "draw text", "ICanvas", "IDrawable", "shadows", "clipping", "Microsoft.Maui.Graphics".
+  DO NOT USE FOR: view animations (use maui-animations), gesture handling on drawn elements
+  (use maui-gestures), or app icons (use maui-app-icons-splash).
 ---
 
 # .NET MAUI Graphics Drawing
