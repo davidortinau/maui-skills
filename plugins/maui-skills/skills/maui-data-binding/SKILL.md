@@ -21,11 +21,22 @@ description: >-
 | `OneWayToSource` | Target → Source | Read user input without pushing back to UI |
 | `OneTime` | Source → Target (once) | Static values; no change tracking overhead |
 
-Set explicitly when the property default doesn't match your intent:
+Set explicitly **only** when the property default doesn't match your intent. Do not specify `Mode=OneWay` on properties where `OneWay` is already the default (e.g. `Label.Text`, `Image.Source`) — it adds noise without changing behavior.
 
 ```xml
-<Entry Text="{Binding UserName, Mode=TwoWay}" />
+<!-- ✅ OneTime overrides the default — be explicit -->
 <Label Text="{Binding Title, Mode=OneTime}" />
+<!-- ✅ OneWayToSource overrides the default — be explicit -->
+<Entry Text="{Binding SearchQuery, Mode=OneWayToSource}" />
+
+<!-- ✅ Defaults — omit Mode -->
+<Label Text="{Binding Score}" />           <!-- OneWay is the default for Label.Text -->
+<Entry Text="{Binding UserName}" />        <!-- TwoWay is the default for Entry.Text -->
+<Switch IsToggled="{Binding DarkMode}" />  <!-- TwoWay is the default for Switch.IsToggled -->
+
+<!-- ❌ Redundant — these just restate the default -->
+<Label Text="{Binding Score, Mode=OneWay}" />
+<Entry Text="{Binding UserName, Mode=TwoWay}" />
 ```
 
 ## BindingContext and Property Paths
@@ -60,6 +71,35 @@ Declare `x:DataType` on the element or an ancestor:
 ```xml
 <ContentPage x:DataType="vm:MainViewModel">
     <Label Text="{Binding UserName}" />
+</ContentPage>
+```
+
+### Where to place x:DataType
+
+`x:DataType` should **only** be declared at levels where `BindingContext` is set:
+
+1. **Page root** – where you assign `BindingContext` (in XAML or code-behind).
+2. **DataTemplate** – which creates a new binding scope with a different type.
+
+Do **not** scatter `x:DataType` on intermediate child elements. Children inherit the `x:DataType` from their ancestor, just as they inherit `BindingContext`. Adding `x:DataType="x:Object"` on children to "escape" compiled bindings is an anti-pattern — it disables compile-time checking and reintroduces reflection.
+
+```xml
+<!-- ✅ Correct: x:DataType only where BindingContext is set -->
+<ContentPage x:DataType="vm:MainViewModel">
+    <StackLayout>
+        <Label Text="{Binding Title}" />
+        <Slider Value="{Binding Progress}" />
+        <GraphicsView />
+    </StackLayout>
+</ContentPage>
+
+<!-- ❌ Wrong: x:DataType scattered on children -->
+<ContentPage x:DataType="vm:MainViewModel">
+    <StackLayout>
+        <Label Text="{Binding Title}" />
+        <Slider x:DataType="x:Object" Value="{Binding Progress}" />
+        <GraphicsView x:DataType="x:Object" />
+    </StackLayout>
 </ContentPage>
 ```
 
