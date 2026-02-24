@@ -1,0 +1,11 @@
+{
+  "name": "maui-skills",
+  "description": ".NET MAUI development skills covering controls, navigation, data, platform APIs, and more.",
+  "author": {
+    "name": "David Ortinau",
+    "email": "daortin@microsoft.com"
+  },
+  "homepage": "https://github.com/davidortinau/maui-skills",
+  "repository": "https://github.com/davidortinau/maui-skills",
+  "license": "MIT"
+}

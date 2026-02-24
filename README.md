@@ -59,18 +59,14 @@ Individual skills become available automatically based on your prompts.
 
 ### Claude Code
 
-Clone this repository and copy the skills you want into your Claude Code skills directory:
+Install all 34 skills via the plugin marketplace:
 
 ```bash
-git clone https://github.com/davidortinau/maui-skills.git
-cp -R maui-skills/plugins/maui-skills/skills/maui-* ~/.claude/skills/
+/plugin marketplace add davidortinau/maui-skills
+/plugin install maui-skills@maui-skills
 ```
 
-Or copy individual skills:
-
-```bash
-cp -R maui-skills/plugins/maui-skills/skills/maui-collectionview ~/.claude/skills/
-```
+Skills load automatically when your prompt matches a topic — no manual selection needed.
 
 ### Manual (any tool)
 
@@ -99,7 +95,7 @@ Contributions are welcome. To add or improve a skill:
 1. Fork this repository.
 2. Add or edit a skill under `plugins/maui-skills/skills/<skill-name>/`.
 3. Ensure the `SKILL.md` has valid YAML frontmatter with `name` and `description`.
-4. If adding a new skill, add its path to `.github/plugin/marketplace.json`.
+4. If adding a new skill, add its path to `.github/plugin/marketplace.json` (GitHub Copilot) — Claude Code auto-discovers skills from the `skills/` directory.
 5. Submit a pull request with a description of what the skill covers.
 
 ## Validation Tests

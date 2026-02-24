@@ -1,0 +1,25 @@
+{
+  "name": "maui-skills",
+  "owner": {
+    "name": "David Ortinau",
+    "email": "daortin@microsoft.com"
+  },
+  "metadata": {
+    "description": ".NET MAUI development skills for Claude Code"
+  },
+  "plugins": [
+    {
+      "name": "maui-skills",
+      "source": "./plugins/maui-skills",
+      "description": ".NET MAUI development skills covering controls, navigation, data, platform APIs, and more.",
+      "version": "1.1.0",
+      "author": {
+        "name": "David Ortinau",
+        "email": "daortin@microsoft.com"
+      },
+      "homepage": "https://github.com/davidortinau/maui-skills",
+      "repository": "https://github.com/davidortinau/maui-skills",
+      "license": "MIT"
+    }
+  ]
+}
